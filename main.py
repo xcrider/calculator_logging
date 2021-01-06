@@ -17,7 +17,7 @@ def addition():
 def subtraction():
     a = int(input("Podaj skladnik 1: "))
     b = int(input("Podaj skladnik 2: "))
-    logging.debug(f"Odejmuje {a} i {b}")
+    logging.debug(f"Odejmuje {a} i {b}") 
     result = a - b
     print (result)
 
@@ -26,7 +26,9 @@ def multiplication():
     numbers_list = input("Podaj liczby ktore mam pomnozyc ze soba, w liście odzielone spacją: ")
     numbers_list = numbers_list.split(' ')
     for number in numbers_list:
+        logging.debug(f"Mnoze {number} z {result}")
         result  = int(number) * result
+        
         
     print (result)
 
