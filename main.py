@@ -47,4 +47,5 @@ if __name__ == "__main__":
     elif calculation_type == 4:
         division()
     elif calculation_type > 4:
-        print("Nie umiem wykonać tej operacji")
+        logging.debug(f"User provided {calculation_type} value. Selected option is out of available scope.")
+        exit(1)
