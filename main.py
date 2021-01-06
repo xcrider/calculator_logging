@@ -22,11 +22,12 @@ def subtraction():
     print (result)
 
 def multiplication():
-    
-    a = int(input("Podaj skladnik 1: "))
-    b = int(input("Podaj skladnik 2: "))
-    logging.debug(f"Mnoze {a} i {b}")
-    result = a * b 
+    result = 1
+    numbers_list = input("Podaj liczby ktore mam pomnozyc ze soba, w liście odzielone spacją: ")
+    numbers_list = numbers_list.split(' ')
+    for number in numbers_list:
+        result  = int(number) * result
+        
     print (result)
 
 def division():
