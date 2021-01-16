@@ -13,6 +13,10 @@ a_logger.addHandler(stdout_handler)
 
 def addition():
 
+    '''Adding number from list.
+    User is asked to provide number separated only by whitespace.
+    Example of correctly provided data: 12 2 3'''
+
     while True:
         try:
             result = 0
@@ -29,6 +33,8 @@ def addition():
 
 def subtraction():
 
+    '''Subtracting 2nd value from 1st value.'''
+
     while True:
         try:
             a = int(input("Podaj skladnik 1: "))
@@ -42,6 +48,12 @@ def subtraction():
 
 
 def multiplication():
+
+    '''Multiplying all values from a list.
+    User is asked to provide all numbers for the calculation in a list.
+    Numbers should be splitted by ' ' whitespace only.
+    Example of correctly provided data: 12 3 1
+    Function returns result of multiplication all number.'''
 
     while True:
         try:
@@ -58,6 +70,9 @@ def multiplication():
 
 
 def division():
+
+    '''Dividing 2 provided by users number.
+    Function return result of dividng 1st value by 2nd value.'''
 
     while True:
         try:
