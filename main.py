@@ -13,44 +13,62 @@ a_logger.addHandler(stdout_handler)
 
 def addition():
 
-    result = 0
-    numbers_list = input("Podaj liczby ktore mam zsumować, w liście odzielone spacją: ")
-    numbers_list = numbers_list.split(' ')
-    for number in numbers_list:
-        a_logger.debug(f"Dodaje {number} do {result}")
-        result = result + int(number)
-
-    print(result)  
+    while True:
+        try:
+            result = 0
+            numbers_list = input("Podaj liczby ktore mam zsumować, w liście odzielone spacją: ")
+            numbers_list = numbers_list.split(' ')
+            for number in numbers_list:
+                a_logger.debug(f"Dodaje {number} do {result}")
+                result = result + int(number)
+            print(result)
+            break
+        except ValueError:
+            print("Oops!  Podaj liczbę: ")
 
 
 def subtraction():
 
-    a = int(input("Podaj skladnik 1: "))
-    b = int(input("Podaj skladnik 2: "))
-    a_logger.debug(f"Odejmuje {a} i {b}") 
-    result = a - b
-    print(result)
+    while True:
+        try:
+            a = int(input("Podaj skladnik 1: "))
+            b = int(input("Podaj skladnik 2: "))
+            a_logger.debug(f"Odejmuje {a} i {b}")
+            result = a - b
+            print(result)
+            break
+        except ValueError:
+            print("Oops!  Podaj liczbę: ")
 
 
 def multiplication():
 
-    result = 1
-    numbers_list = input("Podaj liczby ktore mam pomnozyc ze soba, w liście odzielone spacją: ")
-    numbers_list = numbers_list.split(' ')
-    for number in numbers_list:
-        a_logger.debug(f"Mnoze {number} z {result}")
-        result = int(number) * result
+    while True:
+        try:
+            numbers_list = input("Podaj liczby ktore mam pomnozyc ze soba, w liście odzielone spacją: ")
+            result = 1
+            numbers_list = numbers_list.split(' ')
+            for number in numbers_list:
+                a_logger.debug(f"Mnoze {number} z {result}")
+                result = int(number) * result
+            print(result)
+            break
+        except ValueError:
+            print("Oops!  Podaj liczbę: ")
 
-    print(result)
 
+def division():
 
-def division(a,b):
-
-    a = int(input("Podaj skladnik 1: "))
-    b = int(input("Podaj skladnik 2: "))
-    a_logger.debug(f"Dziele {a} przez {b}")
-    result = a / b 
-    print(result)
+    while True:
+        try:
+            a = int(input("Podaj skladnik 1: "))
+            b = int(input("Podaj skladnik 2: "))
+            a_logger.debug(f"Dziele {a} przez {b}")
+            result = a / b
+            print(result)
+            break
+        except ValueError:
+            print("Oops!  Podaj liczbę: ")
 
 
 if __name__ == "__main__":
@@ -62,7 +80,7 @@ if __name__ == "__main__":
 
     elif calculation_type == 2:
         subtraction()
-    
+
     elif calculation_type == 3:
         multiplication()
 
