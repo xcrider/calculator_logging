@@ -1,43 +1,57 @@
-import sys
 import logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s', filename="logfile.log")
+import sys
+
+a_logger = logging.getLogger()
+a_logger.setLevel(logging.DEBUG)
+
+output_file_handler = logging.FileHandler("output.log")
+stdout_handler = logging.StreamHandler(sys.stdout)
+
+a_logger.addHandler(output_file_handler)
+a_logger.addHandler(stdout_handler)
 
 
 def addition():
+
     result = 0
     numbers_list = input("Podaj liczby ktore mam zsumować, w liście odzielone spacją: ")
     numbers_list = numbers_list.split(' ')
     for number in numbers_list:
-        logging.debug(f"Dodaje {number} do {result}")
+        a_logger.debug(f"Dodaje {number} do {result}")
         result = result + int(number)
-    
-    print(result)
-    
+
+    print(result)  
+
 
 def subtraction():
+
     a = int(input("Podaj skladnik 1: "))
     b = int(input("Podaj skladnik 2: "))
-    logging.debug(f"Odejmuje {a} i {b}") 
+    a_logger.debug(f"Odejmuje {a} i {b}") 
     result = a - b
-    print (result)
+    print(result)
+
 
 def multiplication():
+
     result = 1
     numbers_list = input("Podaj liczby ktore mam pomnozyc ze soba, w liście odzielone spacją: ")
     numbers_list = numbers_list.split(' ')
     for number in numbers_list:
-        logging.debug(f"Mnoze {number} z {result}")
-        result  = int(number) * result
-        
-        
-    print (result)
+        a_logger.debug(f"Mnoze {number} z {result}")
+        result = int(number) * result
 
-def division():
+    print(result)
+
+
+def division(a,b):
+
     a = int(input("Podaj skladnik 1: "))
     b = int(input("Podaj skladnik 2: "))
-    logging.debug(f"Dziele {a} przez {b}")
+    a_logger.debug(f"Dziele {a} przez {b}")
     result = a / b 
-    print (result)
+    print(result)
+
 
 if __name__ == "__main__":
 
@@ -55,5 +69,5 @@ if __name__ == "__main__":
     elif calculation_type == 4:
         division()
     elif calculation_type > 4:
-        logging.debug(f"User provided {calculation_type} value. Selected value is out of available scope.")
-        exit(1)
+        a_logger.debug(f"User provided {calculation_type} value. Selected value is out of available scope.")
+        exit()
