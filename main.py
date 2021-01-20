@@ -11,24 +11,29 @@ a_logger.addHandler(output_file_handler)
 a_logger.addHandler(stdout_handler)
 
 
-def addition():
+def input_data(func):
+     while True:
+        try:
+            numbers_list = input("Podaj liczby ktore mam zsumować, w liście odzielone spacją: ")
+            numbers_list = numbers_list.split(' ')
+            func(numbers_list)
+            break
+        except ValueError:
+            print("Oops!  Podaj liczbę: ")
+
+def addition(numbers_list):
 
     '''Adding number from list.
     User is asked to provide number separated only by whitespace.
     Example of correctly provided data: 12 2 3'''
 
-    while True:
-        try:
-            result = 0
-            numbers_list = input("Podaj liczby ktore mam zsumować, w liście odzielone spacją: ")
-            numbers_list = numbers_list.split(' ')
-            for number in numbers_list:
-                a_logger.debug(f"Dodaje {number} do {result}")
-                result = result + int(number)
-            print(result)
-            break
-        except ValueError:
-            print("Oops!  Podaj liczbę: ")
+    result = 0
+    for number in numbers_list:
+        a_logger.debug(f"Dodaje {number} do {result}")
+        result = result + int(number)
+
+    return (result)
+
 
 
 def subtraction():
@@ -91,7 +96,7 @@ if __name__ == "__main__":
     calculation_type = int(input("Podaj działanie, posługując się odpowiednią liczbą: 1 Dodawanie, 2 Odejmowanie, 3 Mnożenie, 4 Dzielenie: "))
 
     if calculation_type == 1:
-        addition()
+        input_data(addition)
 
     elif calculation_type == 2:
         subtraction()
@@ -101,6 +106,7 @@ if __name__ == "__main__":
 
     elif calculation_type == 4:
         division()
+
     elif calculation_type > 4:
         a_logger.debug(f"User provided {calculation_type} value. Selected value is out of available scope.")
         exit()
