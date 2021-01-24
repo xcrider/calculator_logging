@@ -1,5 +1,6 @@
 import logging
 import sys
+from functools import wraps
 
 a_logger = logging.getLogger()
 a_logger.setLevel(logging.DEBUG)
@@ -12,15 +13,28 @@ a_logger.addHandler(stdout_handler)
 
 
 def input_data(func):
-     while True:
-        try:
-            numbers_list = input("Podaj liczby ktore mam zsumować, w liście odzielone spacją: ")
-            numbers_list = numbers_list.split(' ')
-            func(numbers_list)
-            break
-        except ValueError:
-            print("Oops!  Podaj liczbę: ")
 
+    @wraps(func)
+    def wrapper():
+
+        while True:
+
+            numbers_list = input("Input number for calcualtion (in list separated with whitespace): ")
+            print(numbers_list)
+            try:
+                numbers_list = [int(x) for x in numbers_list.split(' ')]
+                if func == subtraction or division and len(numbers_list) > 2:
+                    print("Can't process. Only two arguments accepted!!!")
+                    continue
+                else:
+                    break
+            except ValueError:
+                print("Oops!  Podaj liczbę: ")
+        func(numbers_list)
+    return wrapper
+
+
+@input_data
 def addition(numbers_list):
 
     '''Adding number from list.
@@ -30,83 +44,55 @@ def addition(numbers_list):
     result = 0
     for number in numbers_list:
         a_logger.debug(f"Dodaje {number} do {result}")
-        result = result + int(number)
+        result = result + number
 
     return (result)
 
+@input_data
+def subtraction(numbers_list):
+
+    '''Subtracting 2nd value from 1st value.
+    Functin returns the result of subtraction.'''
+    a_logger.debug(f"Odejmuje {numbers_list[0]} - {numbers_list[1]}")
+    result = numbers_list[0] - numbers_list[1]
+    return result
 
 
-def subtraction():
-
-    '''Subtracting 2nd value from 1st value.'''
-
-    while True:
-        try:
-            a = int(input("Podaj skladnik 1: "))
-            b = int(input("Podaj skladnik 2: "))
-            a_logger.debug(f"Odejmuje {a} i {b}")
-            result = a - b
-            print(result)
-            break
-        except ValueError:
-            print("Oops!  Podaj liczbę: ")
-
-
-def multiplication():
+@input_data
+def multiplication(numbers_list):
 
     '''Multiplying all values from a list.
-    User is asked to provide all numbers for the calculation in a list.
-    Numbers should be splitted by ' ' whitespace only.
-    Example of correctly provided data: 12 3 1
     Function returns result of multiplication all number.'''
 
-    while True:
-        try:
-            numbers_list = input("Podaj liczby ktore mam pomnozyc ze soba, w liście odzielone spacją: ")
-            result = 1
-            numbers_list = numbers_list.split(' ')
-            for number in numbers_list:
-                a_logger.debug(f"Mnoze {number} z {result}")
-                result = int(number) * result
-            print(result)
-            break
-        except ValueError:
-            print("Oops!  Podaj liczbę: ")
+    result = 1
 
+    for number in numbers_list:
+        a_logger.debug(f"Mnoze {number} z {result}")
+        result = int(number) * result
+    return (result)
 
-def division():
+@input_data
+def division(numbers_list):
 
     '''Dividing 2 provided by users number.
     Function return result of dividng 1st value by 2nd value.'''
 
-    while True:
-        try:
-            a = int(input("Podaj skladnik 1: "))
-            b = int(input("Podaj skladnik 2: "))
-            a_logger.debug(f"Dziele {a} przez {b}")
-            result = a / b
-            print(result)
-            break
-        except ValueError:
-            print("Oops!  Podaj liczbę: ")
+    a_logger.debug(f"Dziele {numbers_list[0]} przez {numbers_list[1]}")
+    result = numbers_list[0] / numbers_list[1]
+    return(result)
 
 
 if __name__ == "__main__":
 
-    calculation_type = int(input("Podaj działanie, posługując się odpowiednią liczbą: 1 Dodawanie, 2 Odejmowanie, 3 Mnożenie, 4 Dzielenie: "))
+    operation_dict = {
+        1: addition,
+        2: subtraction,
+        3: multiplication,
+        4: division
+        }
+    [print(key, value) for key, value in operation_dict.items()]
 
-    if calculation_type == 1:
-        input_data(addition)
+    calculation_type = int(input(f"Podaj działanie, posługując się odpowiednią liczbą: "))
 
-    elif calculation_type == 2:
-        subtraction()
-
-    elif calculation_type == 3:
-        multiplication()
-
-    elif calculation_type == 4:
-        division()
-
-    elif calculation_type > 4:
-        a_logger.debug(f"User provided {calculation_type} value. Selected value is out of available scope.")
-        exit()
+    calculation = operation_dict.get(calculation_type)
+    calculation()
