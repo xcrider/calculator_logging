@@ -23,13 +23,13 @@ def input_data(func):
             print(numbers_list)
             try:
                 numbers_list = [int(x) for x in numbers_list.split(' ')]
-                if func == subtraction or division and len(numbers_list) > 2:
+                if func in {subtraction, division} and len(numbers_list) > 2:
                     print("Can't process. Only two arguments accepted!!!")
                     continue
                 else:
                     break
             except ValueError:
-                print("Oops!  Podaj liczbę: ")
+                print("Oops! At least one argument is not a number. Provide a number: ")
         func(numbers_list)
     return wrapper
 
@@ -43,7 +43,7 @@ def addition(numbers_list):
 
     result = 0
     for number in numbers_list:
-        a_logger.debug(f"Dodaje {number} do {result}")
+        a_logger.debug(f"Addint {number} to {result}")
         result = result + number
 
     return (result)
@@ -53,7 +53,7 @@ def subtraction(numbers_list):
 
     '''Subtracting 2nd value from 1st value.
     Functin returns the result of subtraction.'''
-    a_logger.debug(f"Odejmuje {numbers_list[0]} - {numbers_list[1]}")
+    a_logger.debug(f"Substracting {numbers_list[0]} - {numbers_list[1]}")
     result = numbers_list[0] - numbers_list[1]
     return result
 
@@ -67,7 +67,7 @@ def multiplication(numbers_list):
     result = 1
 
     for number in numbers_list:
-        a_logger.debug(f"Mnoze {number} z {result}")
+        a_logger.debug(f"Multipluing {number} with {result}")
         result = int(number) * result
     return (result)
 
@@ -77,22 +77,26 @@ def division(numbers_list):
     '''Dividing 2 provided by users number.
     Function return result of dividng 1st value by 2nd value.'''
 
-    a_logger.debug(f"Dziele {numbers_list[0]} przez {numbers_list[1]}")
+    a_logger.debug(f"Dividing {numbers_list[0]} by {numbers_list[1]}")
     result = numbers_list[0] / numbers_list[1]
     return(result)
 
 
-if __name__ == "__main__":
-
+def calculator_options():
     operation_dict = {
         1: addition,
         2: subtraction,
         3: multiplication,
         4: division
         }
-    [print(key, value) for key, value in operation_dict.items()]
 
-    calculation_type = int(input(f"Podaj działanie, posługując się odpowiednią liczbą: "))
+    [print(key, value.__name__) for key, value in operation_dict.items()]
+    calculation_type = int(input("Select the operation by providing the corresponding number: "))
 
     calculation = operation_dict.get(calculation_type)
     calculation()
+
+
+if __name__ == "__main__":
+
+    calculator_options()
