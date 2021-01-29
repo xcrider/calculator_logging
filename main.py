@@ -23,7 +23,7 @@ def input_data(func):
             print(numbers_list)
             try:
                 numbers_list = [int(x) for x in numbers_list.split(' ')]
-                if func.__name__ in {subtraction, division} and len(numbers_list) > 2:
+                if func.__name__ in {subtraction, division]} and len(numbers_list) > 2:
                     print("Can't process. Only two arguments accepted!!!")
                     continue
                 else:
@@ -46,7 +46,7 @@ def addition(numbers_list):
         a_logger.debug(f"Addint {number} to {result}")
         result = result + number
 
-    print("Result of addition is  = {result}")
+    print(f"Result of addition is  = {result}")
     return (result)
 
 @input_data
@@ -56,7 +56,7 @@ def subtraction(numbers_list):
     Functin returns the result of subtraction.'''
     a_logger.debug(f"Substracting {numbers_list[0]} - {numbers_list[1]}")
     result = numbers_list[0] - numbers_list[1]
-    print("Result of subtraction is  = {result}")
+    print(f"Result of subtraction is  = {result}")
     return result
 
 
@@ -71,7 +71,7 @@ def multiplication(numbers_list):
     for number in numbers_list:
         a_logger.debug(f"Multipluing {number} with {result}")
         result = int(number) * result
-    print("Result of multipliction is  = {result}")
+    print(f"Result of multipliction is  = {result}")
     return (result)
 
 
