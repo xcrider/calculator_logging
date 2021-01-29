@@ -23,7 +23,7 @@ def input_data(func):
             print(numbers_list)
             try:
                 numbers_list = [int(x) for x in numbers_list.split(' ')]
-                if func.__name__ in {subtraction, division]} and len(numbers_list) > 2:
+                if func.__name__ in {"subtraction", "division"} and len(numbers_list) > 2:
                     print("Can't process. Only two arguments accepted!!!")
                     continue
                 else:
@@ -83,7 +83,7 @@ def division(numbers_list):
 
     a_logger.debug(f"Dividing {numbers_list[0]} by {numbers_list[1]}")
     result = numbers_list[0] / numbers_list[1]
-    print("Result of division is  = {result}")
+    print(f"Result of division is  = {result}")
     return(result)
 
 
